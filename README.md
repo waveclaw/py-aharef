@@ -1,2 +1,15 @@
 # py-aharef
-Graph web page structure with a Python-Tkinter application inspired by htmlgraph from aharef.info
+
+Graph web page structure with a Python-Tkinter application.
+
+This is inspired by htmlgraph from aharef.info.
+
+## Usage
+
+`py-aharef <Some URI to an HTML file>`
+
+## Output
+
+This program produces a 2-dimensional image of a coloured tree of nodes.
+
+Each node is a part of the structure of the HTML file.

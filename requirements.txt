@@ -1,0 +1,14 @@
+#
+####### requirements.txt #######
+#
+nose
+nose-cov
+beautifulsoup4
+pylint
+setuptools
+pip
+requests
+pymunk
+#tkinter
+#tix
+#

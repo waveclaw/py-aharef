@@ -1,0 +1,13 @@
+"Python AHA Rref" or the Python version of the
+
+Animated HTML Attribute Recursive Enumeration Fixation.
+
+
+Based on the original work of htmlgraph at
+http://www.aharef.info/static/htmlgraph/sourcecode.html
+
+For entertainment value only.
+
+To run it, try:
+
+python3 ./src/py-aharef/pyaharef.pyw
