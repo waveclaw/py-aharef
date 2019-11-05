@@ -6,7 +6,7 @@ This is inspired by htmlgraph from aharef.info.
 
 ## Usage
 
-`py-aharef <Some URI to an HTML file>`
+`python3 pyaharef.pyw`
 
 ## Output
 
