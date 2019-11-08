@@ -1,0 +1,7 @@
+------------------------------------------------------------------- 
+Fri Nov  8 06:41:58 UTC 2019 - JD Powell <waveclaw@ hotmail.com>
+
+- Initial Program Load from Python 2 archive
+- Reorganize into modern Python 3 project
+- Add pacakging, unittest, documentation and metadata files
+- Add initial unit tests for Ghetto Drawer class
