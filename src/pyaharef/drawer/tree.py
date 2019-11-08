@@ -44,8 +44,8 @@
 """
 
 # pyahref internals
-from ../globals import X, Y, DEFAULT_COLOR
-from ../Style import Style
+from pyaharef.globals import X, Y, DEFAULT_COLOR
+from pyaharef.style import Style
 # Pymunk is conditionally imported bellow to pick which subclass to use
 # import pymunk
 
@@ -126,8 +126,7 @@ class Tree:
                    self.graph.winfo_reqheight() / 2,
                    0)  # no angle
             self.size = max(end[X], end[Y])
-            print 'Drawing a tree with root', self.tree,
-            print  'of size', self.size
+            print(f'Drawing a tree with root {self.tree} of size {self.size}')
             mystyle = Style(color=DEFAULT_COLOR,
                             position=0,
                             count=0,
@@ -138,7 +137,7 @@ class Tree:
             mystyle = self.drawertype.style(tree=self.tree,
                                             style=mystyle,
                                             position=0)
-            print 'root"s', children, 'from', mystyle.start, 'to', end
+            print(f'root {children} from {mystyle.start} to {end}')
         else:
             mystyle = style
             children = child.getchildren()
@@ -153,7 +152,7 @@ class Tree:
                                                      position=childpos)
                 mychildstyle.start = end
                 mychildstyle.count = mystyle.count
-                print 'my child', mychild, 'at', end
+                print(f'my child {mychild} at {end}')
                 self.draw(child=mychild,
                           style=mychildstyle,
                           depth=depth + 1)
@@ -162,6 +161,6 @@ class Tree:
 
 
 if __name__ == '__main__':
-    print 'pyaharef: treedrawer'
+    print('pyaharef: treedrawer')
     TREE = TreeDrawer()
     print(str(TREE))

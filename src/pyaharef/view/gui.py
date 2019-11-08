@@ -47,15 +47,15 @@ from Tkinter import Frame, Canvas, IntVar, Radiobutton, Label, Button
 # Tix, the Tkinter extensions
 import Tix
 # pyahref internals
-from globals import DEFAULT_URL, GRAPH_TYPE
-from parser import document, site, tree
-from view import page, site
+from pyaharef.globals import DEFAULT_URL, GRAPH_TYPE
+from pyaharef.parser import document, site, tree
+from pyaharef.view import page, site
 
 try:
-    from drawer.Pymunk import Drawer as myTreeDrawer
+    from pyaharef.drawer.Pymunk import Drawer as myTreeDrawer
 except ImportError:
-    print 'Using Ghetto Drawer, could not import PymunkDrawer'
-    from drawer.ghetto import Drawer as myTreeDrawer
+    print('Using Ghetto Drawer, could not import PymunkDrawer')
+    from pyaharef.drawer.ghetto import Drawer as myTreeDrawer
 
 PARSERS = [document.Document, site.Site]
 VIEWTYPE = [page.Page, site.Site]
@@ -150,8 +150,8 @@ class Gui():
         (index, name) = GRAPH_TYPE[self.graphtype.get()]
         maketree = PARSERS[index](document=text)
         view = VIEWTYPE[index]
-        print 'Parser is', str(maketree)
-        print 'View is', str(view), 'called', name
+        print(f'Parser is {maketree}')
+        print(f'View is {view} called {name}'
         if statustext == DEFAULT_URL:
             self.status['text'] = statustext
             return
@@ -170,7 +170,7 @@ class Gui():
             treedrawer = myTreeDrawer(graph=self.graph,
                                       tree=documenttree,
                                       drawertype=view)
-            print 'Drawer is', str(treedrawer)
+            print(f'Drawer is {treedrawer}')
             treedrawer.draw()
         except Exception, err:
             if hasattr(err, 'reason'):

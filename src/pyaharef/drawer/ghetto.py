@@ -41,14 +41,14 @@
 ############################################################################
 
 """
-from ../globals import X, Y, ANGLE, polar2rectangular, rectangular2polar
+from pyaharef.globals import X, Y, ANGLE, polar2rectangular
 
-from . import tree.Tree as Tree
+from . import tree
 # Math function for conversions
 from math import exp
 
 
-class Ghetto(Tree):
+class Ghetto(tree.Tree):
     """
      No real physics?  No problem!
         1. draw fixed length line
@@ -77,6 +77,5 @@ class Ghetto(Tree):
                style.start[Y] +
                polar2rectangular(length, angle)[Y],
                angle)
-        print 'returning end of', end, 'in location', style.position,
-        print 'for', style.count, 'children'
+        print(f'returning end of {end} in location {style.position}, for {style.count} children')
         return end

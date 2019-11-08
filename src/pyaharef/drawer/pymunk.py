@@ -41,7 +41,7 @@
 ############################################################################
 
 """
-from . import tree.Tree as Tree
+from . import tree
 import pymunk
 from ChargedBody import ChargeBody # typo, will fail
 
@@ -76,7 +76,7 @@ def pymunk_after(space = None, graph = None, updatelist = None):
                                     graph = graph,
                                     updatelist = updatelist))
 
-class Pymunk(Tree):
+class Pymunk(tree.Tree):
     '''
      Pseudo-real physics using chipmunk via pymunk.
      Needs a Charged body implementation ala

@@ -38,7 +38,7 @@
 ############################################################################
 """
 
-from globals import DEFAULT_COLOR, X, Y
+from .globals import DEFAULT_COLOR, X, Y
 
 class Style:
     """
