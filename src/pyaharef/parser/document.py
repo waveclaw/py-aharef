@@ -42,8 +42,8 @@
 
 """
 
-from tree import Tree
-from ../elementsoup import ElementSoup
+from pyaharef.parser.tree import Tree
+import pyaharef.elementsoup
 
 class Document(Tree):
     """
@@ -59,5 +59,5 @@ class Document(Tree):
         #cleanedPage = BeautifulSoup(response).prettify()
         if response:
             #tree = ElementTree.parse(cleanedPage).getroot()
-            tree = ElementSoup.parse(response)
+            tree = parse(response)
         return tree

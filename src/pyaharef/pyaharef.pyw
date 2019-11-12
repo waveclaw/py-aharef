@@ -45,19 +45,22 @@
 # parsing tools
 import optparse
 # Tkinter, the portable GUI
-from Tkinter import TclError
+from tkinter import TclError
 # Tix, the Tkinter extentions
-import Tix
+import tkinter.tix as tix
 #from Tkconstants import *
 
 # pyaharef internals
-from view import gui.Gui as Gui
+import os
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from view.gui import Gui
 
 def main():
     """
     Display the GUI
     """
-    rootWindow = Tix.Tk() # not Tk, need the combo box widget
+    rootWindow = tix.Tk() # not Tk, need the combo box widget
     rootWindow.wm_title('PyAharef Website Grapher')
 
     parser = optparse.OptionParser(version="0.0.74") # version option --version enabled
@@ -78,7 +81,7 @@ def main():
 
 if ( __name__ == '__main__' ):
     try:
-        main()
+       main()
     except TclError as tke:
         print(f'Error with Drawing the graphics {tke}')
     except Exception as e:

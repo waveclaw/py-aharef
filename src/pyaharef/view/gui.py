@@ -40,22 +40,22 @@
 
 """
 # Tkinter, the portable GUI
-from Tkconstants import N, S, E, W, \
+from tkinter import N, S, E, W, \
     X, LEFT, RIGHT, BOTH, SUNKEN, YES, \
     TOP, BOTTOM, ALL
-from Tkinter import Frame, Canvas, IntVar, Radiobutton, Label, Button
+from tkinter import Frame, Canvas, IntVar, Radiobutton, Label, Button
 # Tix, the Tkinter extensions
-import Tix
+from tkinter import tix
 # pyahref internals
 from pyaharef.globals import DEFAULT_URL, GRAPH_TYPE
 from pyaharef.parser import document, site, tree
 from pyaharef.view import page, site
 
 try:
-    from pyaharef.drawer.Pymunk import Drawer as myTreeDrawer
+    from pyaharef.drawer.pymunk import Pymunk as myTreeDrawer
 except ImportError:
     print('Using Ghetto Drawer, could not import PymunkDrawer')
-    from pyaharef.drawer.ghetto import Drawer as myTreeDrawer
+    from pyaharef.drawer.ghetto import Ghetto as myTreeDrawer
 
 PARSERS = [document.Document, site.Site]
 VIEWTYPE = [page.Page, site.Site]
@@ -89,7 +89,7 @@ class Gui():
         self.parentframe.pack(side=LEFT, fill=BOTH, expand=YES)
         topframe = Frame(self.parentframe)
         # self.urlbar = Text(topframe, bg = '#FFFFFF', width = 64, height = 1)
-        self.urlbar = Tix.ComboBox(topframe, bg='#FFFFFF',
+        self.urlbar = tix.ComboBox(topframe, bg='#FFFFFF',
                                    editable=True, variable=self.urls,
                                    command=lambda x: self.drawgraph())
         if self.urls[0]:
@@ -137,7 +137,7 @@ class Gui():
             return
         if text != DEFAULT_URL:
             # be consistent and update the history
-            self.urlbar.insert(Tix.END, text)
+            self.urlbar.insert(tix.END, text)
         if text and text != "\n" and text not in self.urls:
             self.urls.append(text)
         # print self.urls
@@ -151,8 +151,8 @@ class Gui():
         maketree = PARSERS[index](document=text)
         view = VIEWTYPE[index]
         print(f'Parser is {maketree}')
-        print(f'View is {view} called {name}'
-        if statustext == DEFAULT_URL:
+        print(f'View is {view} called {name}')
+        if (statustext == DEFAULT_URL):
             self.status['text'] = statustext
             return
         else:
@@ -172,7 +172,7 @@ class Gui():
                                       drawertype=view)
             print(f'Drawer is {treedrawer}')
             treedrawer.draw()
-        except Exception, err:
+        except Exception as err:
             if hasattr(err, 'reason'):
                 self.status['text'] = ''.join(('Failed to reach url: ',
                                                str(err.reason)))
@@ -180,13 +180,13 @@ class Gui():
                 self.status['text'] = ''.join(('Error code: ', str(err.code)))
             else:
                 self.status['text'] = 'Some error happened displaying your URL.'
-                print "Exception", str(err)
+                print(f'Exception {str(err)}')
             raise err
 
 
 if __name__ == '__main__':
-    print 'Graphics GUI testing goes here.'
-    ROOT_WINDOW = Tix.Tk()  # not Tk, need the combo box widget
+    print('Graphics GUI testing goes here.')
+    ROOT_WINDOW = tix.Tk()  # not Tk, need the combo box widget
     ROOT_WINDOW.wm_title('PyAharef: GraphGUI')
     GUI = Gui(parent=ROOT_WINDOW)
     ROOT_WINDOW.pack()

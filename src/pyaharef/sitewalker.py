@@ -71,9 +71,9 @@ Typical usage :
   mypage.walk(myurl)
 
 """
-import re, urllib2
-from urlparse import urlparse, urljoin
-from BeautifulSoup import BeautifulSoup, SoupStrainer
+import re, requests
+from urllib.parse import urlparse, urljoin
+from bs4 import BeautifulSoup, SoupStrainer
 
 # use these and add an optional one to restrict bellow start base/root
 NOTMEDIAURL = re.compile(r'.*[.](?!html$|htm$|aspx$|pl$|php$|/$).*$')
@@ -90,11 +90,11 @@ def isbad(qlink):
     if None == qlink or '' == qlink:
         return True
     if (qlink.startswith('http://') and (
-                            qlink.endswith('.html') or
-                            qlink.endswith('.htm') or
-                        qlink.endswith('.php') or
-                    qlink.endswith('.pl') or
-                qlink.endswith('/'))):
+         qlink.endswith('.html') or
+         qlink.endswith('.htm') or
+         qlink.endswith('.php') or
+         qlink.endswith('.pl') or
+         qlink.endswith('/'))):
         return False
     else:
         return True
@@ -115,19 +115,19 @@ def openlink(link):
         return None
     try:
         pagehandle = urllib2.urlopen(link)
-    except urllib2.HTTPError, err:
+    except requsts.HTTPError as err:
         # serious error, retry the link again then give up?
-        print " "
-        print "HTTPError:", str(err)
-        print "At url:", link
+        print(" ")
+        print(f'HTTPError: {err}')
+        print(f'At url: {link}')
         # ? purge this url from nexurls?
         return None
-    except urllib2.URLError, err:
+    except requests.URLError as err:
         # bad page, 404 or 302.
         # maybe provide a function to do something like note a dead link
-        print " "
-        print "HTTPError:", str(err)
-        print "At url:", link
+        print(" ")
+        print(f'HTTPError: {err}')
+        print(f'At url: {link}')
         # ? purge this url from nexurls?
         return None
     except IOError:
@@ -190,7 +190,7 @@ class SiteWalker:
                             BeautifulSoup(rawpage, parseOnlyThese=SoupStrainer('a'))
                             if tag.has_key('href')])
         except (ValueError, KeyError):
-            print "tag without href"
+            print('tag without href')
         return newurls
 
     def walk(self, url='', visitor=None):
@@ -211,7 +211,7 @@ class SiteWalker:
             current = urls.pop()
             while ((current in visited) or
                        (current.replace('index.html', '') in visited)):
-                print "Defective list: Attempt to revisit " + current
+                print(f'Defective list: Attempt to revisit {current}')
                 current = urls.pop()
 
             visited.append(current)
@@ -262,9 +262,10 @@ class Whereami:
         if None != page and '' != page:
             self.page = page
         if None == self.page or '' == self.page:
-            print "Visited a Null page!"
+            print("Visited a Null page!")
         else:
-            print "Visiting", self.page.geturl()
+            location = self.page.geturl()
+            print(f'Visiting {location}')
 
 
 if __name__ == '__main__':

@@ -3,4 +3,4 @@
 """
 Exports for pyaharef
 """
-__init__ = [ "drawer.tree.Tree", "parser.tree.Tree", "view.gui.Gui" ]
+#__init__ = [ "drawer.tree.Tree", "parser.tree.Tree", "view.gui.Gui" ]

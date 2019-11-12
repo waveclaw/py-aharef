@@ -42,9 +42,8 @@
 
 """
 # parsing tools
-import urllib2
-from elementtree import ElementTree
-
+from urllib import request
+from xml.etree import ElementTree
 
 class Tree():
     """
@@ -62,10 +61,10 @@ class Tree():
         """
         # do _walk here
         # print 'getting', self.document
-        url = urllib2.Request(self.document)
+        url = request(self.document)
         try:
-            response = urllib2.urlopen(url)
-        except urllib2.URLError, err:
+            response = request.urlopen(url)
+        except urllib.URLError as err:
             raise err
         tree = None
         if response:
@@ -84,5 +83,5 @@ class Tree():
 
 
 if __name__ == '__main__':
-    print 'pyaharef: treeparser'
+    print('pyaharef: treeparser')
     print(str(Tree()))

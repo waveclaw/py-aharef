@@ -39,10 +39,10 @@
  23-SEP-2011  0.4/0.6        SHELL001 jdpowell Split out modules
 ############################################################################
 """
-from ../globals import DOT_COLOR, DEFAULT_COLOR, \
+from pyaharef.globals import DOT_COLOR, DEFAULT_COLOR, \
     DEFAULT_HEIGHT, DEFAULT_WIDTH, X, Y
-from ../style import Style
-from . import tree.Tree as Tree
+from pyaharef.style import Style
+from pyaharef.view.tree import Tree
 
 
 class Page(Tree):
@@ -53,8 +53,8 @@ class Page(Tree):
     def style(self, tree, style, position):
         try:
             color = DOT_COLOR[tree.tag]
-        except KeyError, err:
-            print 'No color defined for', tree.tag, str(err)
+        except KeyError as err:
+            print(f'No color defined for {tree.tag}: {err}')
             color = DEFAULT_COLOR
         return Style.Style(color=color,
                            start=style.start,

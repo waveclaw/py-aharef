@@ -40,7 +40,7 @@
 ############################################################################
 
 """
-from . import tree.Tree as Tree
+from pyaharef.view.tree import Tree
 
 
 class Site(Tree):

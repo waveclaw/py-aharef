@@ -41,10 +41,10 @@
 ############################################################################
 
 """
-from Tree import tree as Tree
-from ../walker import site as SiteWalker
-from elementtree import ElementTree
-from BeautifulSoup import BeautifulSoup, SoupStrainer
+from pyaharef.parser.tree import Tree
+from pyaharef.sitewalker import SiteWalker
+from xml.etree.ElementTree import ElementTree
+from bs4 import BeautifulSoup, SoupStrainer
 import re
 
 DOCUMENT = re.compile('.*[.](?!html|htm|aspx|pl|php|asp|/).*$',
@@ -64,7 +64,7 @@ def findurls(openedpage):
                                       parseOnlyThese=SoupStrainer('a'))
                         if tag.has_key('href')])
     except (ValueError, KeyError):
-        print "tag without href"
+        print("tag without href")
     return newurls
 
 

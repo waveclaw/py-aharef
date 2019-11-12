@@ -43,9 +43,10 @@
 
 """
 from bs4 import BeautifulSoup as BS
+from bs4 import Comment, Declaration, ProcessingInstruction
 
 # soup classes that are left out of the tree
-ignorable_soup = BS.Comment, BS.Declaration, BS.ProcessingInstruction
+ignorable_soup = [ Comment, Declaration, ProcessingInstruction ]
 
 # slightly silly
 try:
@@ -56,20 +57,11 @@ except ImportError:
     except ImportError:
         import elementtree.ElementTree as ET
 
-import htmlentitydefs, re
+import html, re
 
 pattern = re.compile("&(\w+);")
 
-try:
-    name2codepoint = htmlentitydefs.name2codepoint
-except AttributeError:
-    # Emulate name2codepoint for Python 2.2 and earlier\n"
-    name2codepoint = {}
-    for name, entity in htmlentitydefs.entitydefs.items():
-        if len(entity) == 1:
-            name2codepoint[name] = ord(entity)
-        else:
-            name2codepoint[name] = int(entity[2:-1])
+name2codepoint = html.entities.name2codepoint
 
 
 def unescape(string):
@@ -107,8 +99,9 @@ def parse(afile, builder=None, encoding=None):
         emit cleaned up html
         :type this_soup:
         """
-        if isinstance(this_soup, BS.NavigableString):
-            if isinstance(this_soup, ignorable_soup):
+        if isinstance(this_soup, BS.element.NavigableString):
+            for ignorable in ignorable_soup:
+              if isinstance(this_soup, ignorable):
                 return
             bob.data(unescape(this_soup))
         else:
@@ -151,5 +144,5 @@ if __name__ == "__main__":
     source = sys.argv[1]
     if source.startswith("http:"):
         import urllib
-        source = urllib.urlopen(source)
-    print ET.tostring(parse(source))
+        source = urllib.request.urlopen(source)
+    print(ET.tostring(parse(source)))
